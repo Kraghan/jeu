@@ -157,15 +157,31 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Arme.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="Entite.cpp" />
+    <ClCompile Include="UniteArmeeAerienne.cpp" />
+    <ClCompile Include="UniteArmeeInfanterie.cpp" />
+    <ClCompile Include="UniteArmeeMaritime.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="tile.cpp" />
+    <ClCompile Include="Unite.cpp" />
+    <ClCompile Include="UniteArmee.cpp" />
+    <ClCompile Include="UniteArmeeMotorise.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arme.h" />
+    <ClInclude Include="Entite.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="Unite.h" />
+    <ClInclude Include="UniteArmee.h" />
+    <ClInclude Include="UniteArmeeAerienne.h" />
+    <ClInclude Include="UniteArmeeInfanterie.h" />
+    <ClInclude Include="UniteArmeeMaritime.h" />
+    <ClInclude Include="UniteArmeeMotorise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

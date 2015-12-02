@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entite">
+      <UniqueIdentifier>{af4b944c-7b84-4477-a2dc-47f1dbbd7140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entite\Unite">
+      <UniqueIdentifier>{6d9c1622-b5d5-4df3-942f-097065b5c57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entite\Batiment">
+      <UniqueIdentifier>{26b275a4-6bde-4070-88c7-73836362a26e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Entite">
+      <UniqueIdentifier>{4db7d5bd-d2d1-4e15-a416-f26344977f14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Entite\Unite">
+      <UniqueIdentifier>{94eaf6f0-c620-443a-9344-568b615bbb59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -30,6 +45,30 @@
     <ClCompile Include="tile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Arme.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="Unite.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="Entite.cpp">
+      <Filter>Fichiers sources\Entite</Filter>
+    </ClCompile>
+    <ClCompile Include="UniteArmee.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="UniteArmeeMaritime.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="UniteArmeeAerienne.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="UniteArmeeMotorise.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
+    <ClCompile Include="UniteArmeeInfanterie.cpp">
+      <Filter>Fichiers sources\Entite\Unite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map.h">
@@ -40,6 +79,30 @@
     </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Arme.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="Unite.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="Entite.h">
+      <Filter>Fichiers d%27en-tête\Entite</Filter>
+    </ClInclude>
+    <ClInclude Include="UniteArmee.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="UniteArmeeAerienne.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="UniteArmeeInfanterie.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="UniteArmeeMaritime.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
+    </ClInclude>
+    <ClInclude Include="UniteArmeeMotorise.h">
+      <Filter>Fichiers d%27en-tête\Entite\Unite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
