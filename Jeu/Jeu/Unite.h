@@ -2,12 +2,8 @@
 #include "Arme.h"
 #include "Entite.h"
 #include <string>
-#include "UniteArmeeAerienne.h"
-#include "UniteArmeeMotorise.h"
-#include "UniteArmeeInfanterie.h"
-#include "UniteArmeeMaritime.h"
 
-class Unite : public Entite{
+class Unite : public Entite {
 
 private : 
 	int stockRessourceActuel, deplacementRestant, stockResssourceMax, deplacementMax, champVision, resistance,
