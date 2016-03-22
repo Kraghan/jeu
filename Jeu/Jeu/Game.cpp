@@ -18,6 +18,9 @@ void Game::loadTextures() {
 	m_textureManager.loadTexture("bouton_topo", "media/res/bouton_topo.png");
 	m_textureManager.loadTexture("bouton_ress", "media/res/bouton_ress.png");
 	m_textureManager.loadTexture("bouton_unite", "media/res/bouton_unite.png");
+	m_textureManager.loadTexture("bouton_acheter", "media/res/bouton_acheter.png");
+	m_textureManager.loadTexture("bouton_precedent", "media/res/bouton_precedent.png");
+	m_textureManager.loadTexture("bouton_suivant", "media/res/bouton_suivant.png");
 
 	m_textureManager.loadTexture("bouton_annuler", "media/res/bouton_annuler.png");
 	m_textureManager.loadTexture("bouton_attaque", "media/res/bouton_attaque.png");
@@ -44,6 +47,9 @@ void Game::loadSprites()
 	m_spriteManager.loadSprite("bouton_topo", m_textureManager.getRef("bouton_topo"), 113, 34, 0, 0);
 	m_spriteManager.loadSprite("bouton_technologies", m_textureManager.getRef("bouton_technologies"), 113, 34, 0, 0);
 	m_spriteManager.loadSprite("bouton_batiments", m_textureManager.getRef("bouton_batiments"), 113, 34, 0, 0);
+	m_spriteManager.loadSprite("bouton_acheter", m_textureManager.getRef("bouton_acheter"), 113, 34, 0, 0);
+	m_spriteManager.loadSprite("bouton_suivant", m_textureManager.getRef("bouton_suivant"), 113, 34, 0, 0);
+	m_spriteManager.loadSprite("bouton_precedent", m_textureManager.getRef("bouton_precedent"), 113, 34, 0, 0);
 
 	m_spriteManager.loadSprite("button_annuler", m_textureManager.getRef("bouton_annuler"), 113, 34, 0, 0);
 	m_spriteManager.loadSprite("button_attaque", m_textureManager.getRef("bouton_attaque"), 113, 34, 0, 0);
@@ -167,12 +173,61 @@ Game::Game(int nbJoueur)
 	m_interface->ajouterBouton(bouton_technologies);
 	Button* bouton_batiments = new Button("batiments", sf::Vector2i(m_winSize.x - (113 + 25), m_winSize.y - 75), m_spriteManager.getRef("bouton_batiments"), &Game::afficherBatimentAConstruire);
 	m_interface->ajouterBouton(bouton_batiments);
+	Button* bouton_acheter = new Button("acheter", sf::Vector2i(330, m_winSize.y - 65), m_spriteManager.getRef("bouton_acheter"), &Game::buy);
+	bouton_acheter->Disable();
+	m_interface->ajouterBouton(bouton_acheter);
+
+	Button* bouton_suivant = new Button("suivant", sf::Vector2i(630, m_winSize.y - 65), m_spriteManager.getRef("bouton_suivant"), &Game::next);
+	bouton_suivant->Disable();
+	m_interface->ajouterBouton(bouton_suivant);
+
+	Button* bouton_precedent = new Button("precedent", sf::Vector2i(480, m_winSize.y - 65), m_spriteManager.getRef("bouton_precedent"), &Game::prec);
+	bouton_precedent->Disable();
+	m_interface->ajouterBouton(bouton_precedent);
+
 	Button* bouton_minimap_topo = new Button("topo", sf::Vector2i(200, m_winSize.y - 175), m_spriteManager.getRef("bouton_topo"), &Game::changeModeTopo);
 	m_interface->ajouterBouton(bouton_minimap_topo);
 	Button* bouton_minimap_ress = new Button("ress", sf::Vector2i(200, m_winSize.y - 125), m_spriteManager.getRef("bouton_ress"), &Game::changeModeRessource);
 	m_interface->ajouterBouton(bouton_minimap_ress);
 	Button* bouton_minimap_unite = new Button("unite", sf::Vector2i(200, m_winSize.y - 75), m_spriteManager.getRef("bouton_unite"), &Game::changeModeUnite);
 	m_interface->ajouterBouton(bouton_minimap_unite);
+
+	Button* annuler = new Button("annuler", sf::Vector2i(0, 0), m_spriteManager.getRef("button_annuler"), &Game::deselection);
+	m_interface->ajouterBouton(annuler);
+
+	Button* deplacement = new Button("deplacement", sf::Vector2i(0, 0), m_spriteManager.getRef("button_deplacement"), &Game::selectDeplacement);
+	m_interface->ajouterBouton(deplacement);
+
+	Button* attaque = new Button("attaque", sf::Vector2i(0, 0), m_spriteManager.getRef("button_attaque"), &Game::selectAttaque);
+	m_interface->ajouterBouton(attaque);
+
+	Button* convertir = new Button("convertir", sf::Vector2i(0, 0), m_spriteManager.getRef("button_convertir"), &Game::selectConvertir);
+	m_interface->ajouterBouton(convertir);
+
+	Button* fondation = new Button("creation_ville", sf::Vector2i(0, 0), m_spriteManager.getRef("button_fondation"), &Game::creerVille);
+	m_interface->ajouterBouton(fondation);
+
+	Button* exploration = new Button("exploration", sf::Vector2i(0, 0), m_spriteManager.getRef("button_exploration"), &Game::exploreSol);
+	m_interface->ajouterBouton(exploration);
+
+	Button* reappro = new Button("reapprovision", sf::Vector2i(0, 0), m_spriteManager.getRef("button_reapprovision"), &Game::selectReapprovisionne);
+	m_interface->ajouterBouton(reappro);
+
+	Button* charger = new Button("charger", sf::Vector2i(0, 0), m_spriteManager.getRef("button_chargerUnite"), &Game::selectChargeUnite);
+	m_interface->ajouterBouton(charger);
+
+	Button* decharger = new Button("decharger", sf::Vector2i(0, 0), m_spriteManager.getRef("button_dechargerUnite"), &Game::selectDechargeUnite);
+	m_interface->ajouterBouton(decharger);
+
+	m_interface->getButton("annuler")->Disable();
+	m_interface->getButton("deplacement")->Disable();
+	m_interface->getButton("attaque")->Disable();
+	m_interface->getButton("convertir")->Disable();
+	m_interface->getButton("creation_ville")->Disable();
+	m_interface->getButton("exploration")->Disable();
+	m_interface->getButton("reapprovision")->Disable();
+	m_interface->getButton("charger")->Disable();
+	m_interface->getButton("decharger")->Disable();
 	
 	if (brouillardDeGuerre)
 	{
@@ -460,50 +515,30 @@ void Game::clicZoneJeu(int x, int y) {
 
 void Game::clicInterface(int x, int y) {
 	m_interface->clic(this, x, y);
-	/*
-	if (x < 312 && 266 < x && y < 575 && 490 < y) {
-		std::cout << "Fleche gauche " << std::endl;
-        if (tech) afficherPrevTechAChercher();
-		if (batiment) afficherPrevBatiementConstruire();
-	}
-	else if (x < 786 && 740 < x && y < 575 && 490 < y) {
-        std::cout << "Fleche droite " << std::endl;
-        if (tech) afficherNextTechAChercher();
-		if (batiment) afficherNextBatiementConstruire();
-    }
-	else if (tech && x > 600 && x < 675 && y > 560  && y < 570 ) {
-        std::cout << "Achat" << std::endl;
-        buyTech();
-    }
-	else if (x < 395 && 261 < x && y < 30 && 4 < y) {
-		std::cout << "Technologie " << std::endl;
-		deselection();
-		afficherTechAChercher();
-		batiment = false;
-	}
-	else if (x < 744 && 710 < x && y < 31 && 2 < y) {
-		std::cout << "Options " << std::endl;
-		deselection();
-		tech = false;
-		batiment = false;
-	}
-	else if (x < 787 && 753 < x && y < 31 && 2 < y) {
-		m_window.close();
-	}*/
 }
 
 void Game::afficherTechAChercher() {
 	m_uniteSelectionne = NULL;
 	m_batimentSelectionne = NULL;
+	batiment = false;
     tech = true;
     indice = 0;
     m_technologie = m_playerActif->getTechnoARechercher()[indice];
+	m_interface->getButton("acheter")->Enable();
+	m_interface->getButton("suivant")->Enable();
+	m_interface->getButton("precedent")->Enable();
 }
 
 void Game::afficherBatimentAConstruire() {
+	m_uniteSelectionne = NULL;
+	m_batimentSelectionne = NULL;
+	tech = false;
 	batiment = true;
 	indice = 0;
 	m_batiment = m_batimentManager.getBatimentConstructible()[indice];
+	m_interface->getButton("acheter")->Enable();
+	m_interface->getButton("suivant")->Enable();
+	m_interface->getButton("precedent")->Enable();
 }
 
 void Game::afficherPrevTechAChercher() {
@@ -520,7 +555,7 @@ void Game::afficherNextTechAChercher() {
     }
 }
 
-void Game::afficherPrevBatiementConstruire()
+void Game::afficherPrevBatimentConstruire()
 {
 	if (indice > 0) {
 		indice--;
@@ -536,9 +571,40 @@ void Game::afficherNextBatimentConstruire()
 	}
 }
 
-void Game::buyTech() {
-    m_playerActif->rechercheTechnologie(m_technologie);
-    tech = false;
+void Game::next()
+{
+	if (tech)
+	{
+		afficherNextTechAChercher();
+	}
+	else if (batiment)
+	{
+		afficherNextBatimentConstruire();
+	}
+}
+
+void Game::prec()
+{
+	if (tech)
+	{
+		afficherPrevTechAChercher();
+	}
+	else if (batiment)
+	{
+		afficherPrevBatimentConstruire();
+	}
+}
+
+void Game::buy() {
+	if (tech)
+	{
+		m_playerActif->rechercheTechnologie(m_technologie);
+		tech = false;
+	}
+	else if (batiment)
+	{
+
+	}
 }
 
 Player* Game::getPlayerActif() {
@@ -571,6 +637,9 @@ void Game::clicUnite(int x, int y, Unite *unite) {
 	m_interface->afficherActionUnite(m_uniteSelectionne, &m_spriteManager,m_winSize.y-INTERFACE_HEIGTH);
 	tech = false;
 	batiment = false;
+	m_interface->getButton("suivant")->Disable();
+	m_interface->getButton("precedent")->Disable();
+	m_interface->getButton("acheter")->Disable();
 }
 
 void Game::definitionCase() {
@@ -836,6 +905,9 @@ void Game::resize()
 	m_interface->getButton("topo")->move(200, m_winSize.y - 175);
 	m_interface->getButton("ress")->move(200, m_winSize.y - 125);
 	m_interface->getButton("unite")->move(200, m_winSize.y - 75);
+	m_interface->getButton("acheter")->move(330, m_winSize.y - 65);
+	m_interface->getButton("suivant")->move(630, m_winSize.y - 65);
+	m_interface->getButton("precedent")->move(480, m_winSize.y - 65);
 	if (m_uniteSelectionne != NULL) {
 		m_interface->removeActionUnite();
 		m_interface->afficherActionUnite(m_uniteSelectionne, &m_spriteManager, m_winSize.y - INTERFACE_HEIGTH);

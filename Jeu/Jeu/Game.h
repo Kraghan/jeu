@@ -48,10 +48,12 @@ private:
 	void afficherBatimentAConstruire();
     void afficherPrevTechAChercher();
     void afficherNextTechAChercher();
-	void afficherPrevBatiementConstruire();
+	void afficherPrevBatimentConstruire();
 	void afficherNextBatimentConstruire();
+	void next();
+	void prec();
 	
-    void buyTech();
+    void buy();
 	MenuPrincipal menu_p;
 	Meteo meteo;
 	sf::Clock weather_clock;
