@@ -104,7 +104,7 @@ public:
 	void clicInterface(int x, int y);
 	void clicZoneJeu(int x, int y);
 	void clicUnite(int x, int y, Unite *unite);
-	void clicBatiment(int x, int y);
+	void clicBatiment(int x, int y, Batiment *batiment);
 
 	void joueurSuivant();
 	void finTour();

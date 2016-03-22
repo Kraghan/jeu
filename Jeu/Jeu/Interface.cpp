@@ -290,6 +290,46 @@ void Interface::renderInfoUnite(sf::RenderWindow *renderWindow, sf::Font font, U
 	}
 }
 
+void Interface::renderInfoBatiment(sf::RenderWindow *renderWindow, sf::Font font, Batiment *batiment, float x, float y) {
+	/*std::string nom, vie, reserve, description, deplacement, vision, res;
+
+	nom = "Nom : " + unite->getNom();
+	description = "Description : " + unite->getDescription();
+
+	reserve = "Reserve : ";
+	reserve = reserve + std::to_string(unite->getStockRessActuel()) + "/" + std::to_string(unite->getStockMaxRess());
+
+	vie = "Vie : ";
+	vie = vie + std::to_string(unite->getPvRestant()) + "/10";
+
+	deplacement = "Deplacement : ";
+	deplacement = deplacement + std::to_string(unite->getDeplacementMax() - 1);
+
+	vision = "Vision : ";
+	vision = vision + std::to_string(unite->getChampVision() - 1);
+
+	res = "Resistance env. : ";
+	res = res + std::to_string(unite->getResistance());
+
+	ecrireMessage(renderWindow, x, y, nom, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18, description, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18 * 2, vie, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18 * 3, reserve, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18 * 4, deplacement, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18 * 5, vision, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, x, y + 18 * 6, res, font, 14, sf::Color::Black);
+
+	if (unite->isArmee()) {
+		UniteArmee* armee = (UniteArmee*)unite;
+		std::string mun = "Munition : ", port = "Portee : ";
+		mun = mun + std::to_string(armee->getStockMunActuel()) + '/' + std::to_string(armee->getStockMaxMun());
+		port = port + std::to_string(armee->getRangeMin() - 1) + '/' + std::to_string(armee->getRangeMax() - 1);
+
+		ecrireMessage(renderWindow, x, y + 18 * 7, mun, font, 14, sf::Color::Black);
+		ecrireMessage(renderWindow, x, y + 18 * 8, port, font, 14, sf::Color::Black);
+	}*/
+}
+
 void Interface::ecrireMessage(sf::RenderWindow *renderWindow, float posX, float posY, std::string msg, sf::Font font, int fontSize, sf::Color color) {
 	sf::Text text;
 	text.setString(msg);

@@ -34,7 +34,7 @@ public:
 	void renderPlayer(sf::RenderWindow *renderWindow, Player* player, sf::Font font, float y);
 	void renderTechnologies(sf::RenderWindow *renderWindow, sf::Font font, Technologie* technologie);
 	void renderInfoUnite(sf::RenderWindow *renderWindow, sf::Font font, Unite *unite, float x, float y);
-	void renderInfoBatiment(sf::RenderWindow *renderWindow, sf::Font font, Batiment* batiment);
+	void renderInfoBatiment(sf::RenderWindow *renderWindow, sf::Font font, Batiment* batiment, float x, float y);
 	void ecrireMessage(sf::RenderWindow *renderWindow, float posX, float posY, std::string msg, sf::Font pathToFont, int fontSize, sf::Color color);
 	
 	void afficherActionUnite(Unite* unite, SpriteManager* manager, int y);

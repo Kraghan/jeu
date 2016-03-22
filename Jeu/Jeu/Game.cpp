@@ -642,6 +642,16 @@ void Game::clicUnite(int x, int y, Unite *unite) {
 	m_interface->getButton("acheter")->Disable();
 }
 
+void Game::clicBatiment(int x, int y, Batiment *batiment)
+{
+	m_batiment = batiment;
+	tech = false;
+	batiment = false;
+	m_interface->getButton("suivant")->Disable();
+	m_interface->getButton("precedent")->Disable();
+	m_interface->getButton("acheter")->Disable();
+}
+
 void Game::definitionCase() {
 	m_attaque.clear();
 	m_deplacement.clear();
@@ -871,7 +881,7 @@ void Game::selection(sf::Vector2i caseClique, int x, int y) {
 		if (m_uniteSelectionne == NULL) {
 			for (int i = 0; i < m_playerActif->getNombreBatiment(); i++) {
 				if (m_playerActif->getBatiment(i)->getCoordX() == caseClique.x && m_playerActif->getBatiment(i)->getCoordY() == caseClique.y) {
-					std::cout << "Batiment clique" << std::endl;
+					clicBatiment(x, y, m_playerActif->getBatiment(i));
 				}
 			}
 		}
