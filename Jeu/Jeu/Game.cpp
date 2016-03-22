@@ -93,12 +93,23 @@ void Game::loadSprites()
 	m_spriteManager.loadSprite("explorateur", m_textureManager.getRef("unite"), 128, 128, 4, 0);
 
 	m_spriteManager.loadSprite("maritime", m_textureManager.getRef("unite"), 128, 128, 0, 1);
+	m_spriteManager.loadSprite("cuirasse", m_textureManager.getRef("unite"), 128, 128, 0, 1);
+	m_spriteManager.loadSprite("torpilleur", m_textureManager.getRef("unite"), 128, 128, 0, 1);
+	m_spriteManager.loadSprite("corvette", m_textureManager.getRef("unite"), 128, 128, 0, 1);
+	m_spriteManager.loadSprite("barge", m_textureManager.getRef("unite"), 128, 128, 0, 1);
 
 	m_spriteManager.loadSprite("motorise", m_textureManager.getRef("unite"), 128, 128, 0, 2);
 	m_spriteManager.loadSprite("artillerie", m_textureManager.getRef("unite"), 128, 128, 1, 2);
 	m_spriteManager.loadSprite("transporteur", m_textureManager.getRef("unite"), 128, 128, 1, 2);
+	m_spriteManager.loadSprite("jeep", m_textureManager.getRef("unite"), 128, 128, 1, 2);
+	m_spriteManager.loadSprite("char", m_textureManager.getRef("unite"), 128, 128, 1, 2);
+	m_spriteManager.loadSprite("dca", m_textureManager.getRef("unite"), 128, 128, 1, 2);
 
 	m_spriteManager.loadSprite("aerien", m_textureManager.getRef("unite"), 128, 128, 0, 3);
+	m_spriteManager.loadSprite("chasseur", m_textureManager.getRef("unite"), 128, 128, 0, 3);
+	m_spriteManager.loadSprite("bombardier", m_textureManager.getRef("unite"), 128, 128, 0, 3);
+	m_spriteManager.loadSprite("helicoptere", m_textureManager.getRef("unite"), 128, 128, 0, 3);
+	m_spriteManager.loadSprite("helico_transport", m_textureManager.getRef("unite"), 128, 128, 0, 3);
 
 	m_spriteManager.loadSprite("gui_haut_gauche", m_textureManager.getRef("gui"), 10, 30, 0, 0);
 	m_spriteManager.loadSprite("gui_haut_milieu", m_textureManager.getRef("gui"), 10, 30, 1, 0);
@@ -367,6 +378,7 @@ void Game::deplacement() {
 	for (int i = 0; i < m_deplacement.size(); i++) {
 		if (caseClique.x == m_deplacement[i].x / m_tileSize && caseClique.y == m_deplacement[i].y / m_tileSize) {
 			m_uniteSelectionne->seDeplace(caseClique.x, caseClique.y, &m_window, m_playerActif->getColor(), &m_spriteManager);
+			m_uniteSelectionne->setResistance(m_map.getTile(caseClique.x, caseClique.y).getBonusRes());
 			if (brouillardDeGuerre) {
 				m_playerActif->decouvre();
 			}
@@ -379,28 +391,29 @@ void Game::attaque() {
 		if (caseClique.x == m_attaque[i].x / m_tileSize && caseClique.y == m_attaque[i].y / m_tileSize) {
 			UniteArmee *unite = (UniteArmee*)m_uniteSelectionne;
 			for (int j = 0; j < m_players.size(); j++) {
-				if (!j == m_numJoueurActif) {
-					for (int k = 0; k < m_players[j]->getNombreUnite(); k++) {
-						if (m_players[j]->getUnite(k)->getCoordX() == caseClique.x && m_players[j]->getUnite(k)->getCoordY() == caseClique.y) {
-							unite->attaque(m_players[j]->getUnite(k));
+				Player* p = m_players[j];
+				if (p->getNom() != m_uniteSelectionne->getNom()) {
+					for (int k = 0; k < p->getNombreUnite(); k++) {
+						if (p->getUnite(k)->getCoordX() == caseClique.x && p->getUnite(k)->getCoordY() == caseClique.y) {
+							unite->attaque(p->getUnite(k));
 
-							if (m_players[j]->getUnite(k)->estDetruit()) {
-								if (m_players[j]->getUnite(k)->isUtilitaire()) {
-									UniteUtilitaire* u = (UniteUtilitaire*)m_players[j]->getUnite(k);
+							if (p->getUnite(k)->estDetruit()) {
+								if (p->getUnite(k)->isUtilitaire()) {
+									UniteUtilitaire* u = (UniteUtilitaire*)p->getUnite(k);
 									if (u->estPlein()) {
 										Unite* temp = u->getUnite();
-										for (int i = 0; i < m_players[j]->getNombreUnite(); i++) {
-											if (m_players[j]->getUnite(i)->getCoordX() == temp->getCoordX() && m_players[j]->getUnite(i)->getCoordY() == temp->getCoordY()) {
-												m_players[j]->detruireUnite(i);
+										for (int i = 0; i < p->getNombreUnite(); i++) {
+											if (p->getUnite(i)->getCoordX() == temp->getCoordX() && p->getUnite(i)->getCoordY() == temp->getCoordY()) {
+												p->detruireUnite(i);
 											}
 										}
 									}
 								}
-								m_players[j]->detruireUnite(k);
+								p->detruireUnite(k);
 							}
-							if (m_players[j]->aPerdu()) {
+							if (p->aPerdu()) {
 								// Annoncer défaite joueur
-								cout << "Le joueur " << m_players[j]->getNom() << " a perdu" << endl;
+								cout << "Le joueur " << p->getNom() << " a perdu" << endl;
 								m_players.erase(m_players.begin() + j);
 								return;
 								if (m_players.size() == 1) {
@@ -419,16 +432,17 @@ void Game::attaque() {
 void Game::convertir() {
 	UniteUtilitaire* u = (UniteUtilitaire*)m_uniteSelectionne;
 	for (int j = 0; j < m_players.size(); j++) {
-		if (j != m_numJoueurActif) {
-			for (int k = 0; k < m_players[j]->getNombreUnite(); k++) {
-				if (m_players[j]->getUnite(k)->getCoordX() == caseClique.x && m_players[j]->getUnite(k)->getCoordY() == caseClique.y) {
-					Unite* ennemi = m_players[j]->getUnite(k);
-					u->convertir(ennemi, m_playerActif, m_players[j]);
+		Player* p = m_players[j];
+		if (p->getNom() != m_uniteSelectionne->getNom()) {
+			for (int k = 0; k < p->getNombreUnite(); k++) {
+				if (p->getUnite(k)->getCoordX() == caseClique.x && p->getUnite(k)->getCoordY() == caseClique.y) {
+					Unite* ennemi = p->getUnite(k);
+					u->convertir(ennemi, m_playerActif, p);
 					m_playerActif->decouvre();
 
-					if (m_players[j]->aPerdu()) {
+					if (p->aPerdu()) {
 						// Annoncer défaite joueur
-						cout << "Le joueur " << m_players[j]->getNom() << " a perdu" << endl;
+						cout << "Le joueur " << p->getNom() << " a perdu" << endl;
 						m_players.erase(m_players.begin() + j);
 						return;
 						if (m_players.size() == 1) {
@@ -819,9 +833,10 @@ bool Game::testUniteAllieeInfanterie(int x, int y) {
 
 bool Game::testUniteEnnemie(int x, int y) {
 	for (int j = 0; j < m_players.size(); j++) {
-		if (!j == m_numJoueurActif) {
-			for (int i = 0; i < m_players[j]->getNombreUnite(); i++) {
-				if (m_players[j]->getUnite(i)->getCoordX() == x && m_players[j]->getUnite(i)->getCoordY() == y) {
+		Player* p = m_players[j];
+		if (p->getNom() != m_uniteSelectionne->getNom()) {
+			for (int i = 0; i < p->getNombreUnite(); i++) {
+				if (p->getUnite(i)->getCoordX() == x && p->getUnite(i)->getCoordY() == y) {
 					return true;
 				}
 			}
@@ -833,7 +848,6 @@ bool Game::testUniteEnnemie(int x, int y) {
 bool Game::testEntiteEnnemie(int x, int y, int numPlayer) {
 	for (int j = 0; j < m_players.size(); j++) {
 		Player* p = m_players[j];
-		cout << p->getNom() << endl;
 		if (p->getNom() != m_players[numPlayer]->getNom()) {
 			for (int i = 0; i < p->getNombreUnite(); i++) {
 				if (p->getUnite(i)->getCoordX() == x && p->getUnite(i)->getCoordY() == y) {
@@ -1207,7 +1221,6 @@ bool Game::spawnProche(int x, int y, int radius, vector<sf::Vector2i> spawnPoint
 
 void Game::setSpawnPlayer() {
 	vector<sf::Vector2i> pointSpawn;
-	
 	for (int i = 4; i < m_map.getWidth()-5; i++) {
 		for (int j = 4; j < m_map.getHeigth()-5; j++) {
 			if (testInfanterieTypeCase(i, j) && !spawnProche(i, j, 7, pointSpawn)) {
