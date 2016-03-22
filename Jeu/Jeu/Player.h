@@ -20,11 +20,11 @@ private :
 	std::vector<Unite*> listUnite;
 	std::vector<Batiment*> listBatiment;
 	std::vector<Technologie> listTechnologie;
-	bool caseDecouverte[MAP_WIDTH][MAP_HEIGTH];
-	bool ressourceDecouverte[MAP_WIDTH][MAP_HEIGTH];
+	vector<vector<bool>> caseDecouverte;
+	vector<vector<bool>> ressourceDecouverte;
 
 public : 
-	Player(sf::Color color, string _nom);
+	Player(sf::Color color, string _nom, int mapWidth, int mapHeight);
 
 	string getNom();
 	int getEnergie();

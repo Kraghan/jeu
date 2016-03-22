@@ -123,81 +123,69 @@ void Interface::removeButton(string nom) {
 }
 
 void Interface::removeActionUnite() {
-	removeButton("annuler");
-	removeButton("deplacement");
-	removeButton("attaque");
-	removeButton("convertir");
-	removeButton("creation_ville");
-	removeButton("exploration");
-	removeButton("reapprovision");
-	removeButton("charger");
-	removeButton("decharger");
+	getButton("annuler")->Disable();
+	getButton("deplacement")->Disable();
+	getButton("attaque")->Disable();
+	getButton("convertir")->Disable();
+	getButton("creation_ville")->Disable();
+	getButton("exploration")->Disable();
+	getButton("reapprovision")->Disable();
+	getButton("charger")->Disable();
+	getButton("decharger")->Disable();
 }
 
-void Interface::afficherActionUnite(Unite* unite, sf::Vector2i caseClique, SpriteManager* manager) {
-	int y = 0;
-	Button* annuler = new Button("annuler", sf::Vector2i(0, y), manager->getRef("button_annuler"), &Game::deselection);
-	ajouterBouton(annuler);
-	y += 34;
-	Button* deplacement = new Button("deplacement", sf::Vector2i(0, y), manager->getRef("button_deplacement"), &Game::selectDeplacement);
-	ajouterBouton(deplacement);
-	y += 34;
+void Interface::afficherActionUnite(Unite* unite, SpriteManager* manager, int y) {
+	y -= 34;
+	int x = 0;
+	getButton("annuler")->move(x, y);
+	getButton("annuler")->Enable();
+	x += 114;
+	getButton("deplacement")->move(x, y);
+	getButton("deplacement")->Enable();
+	x += 114;
 	if (unite->isArmee()) {
-		Button* attaque = new Button("attaque", sf::Vector2i(0, y), manager->getRef("button_attaque"), &Game::selectAttaque);
-		ajouterBouton(attaque);
-		y += 34;
+		getButton("attaque")->move(x, y);
+		getButton("attaque")->Enable();
+		x += 114;
 	}
 	else if (unite->isUtilitaire()) {
 		UniteUtilitaire* u = (UniteUtilitaire*)unite;		
-		cout << "c'est une unite util." << endl;
-		int t = (int)u->getOutil();
-		cout << t << endl;
 		if (u->getOutil() == Outil::convertisseur) {
-			cout << "convert" << endl;
 			if (u->getOutilRestant() > 0) {
-				cout << "button" << endl;
-				Button* convertir = new Button("convertir", sf::Vector2i(0, y), manager->getRef("button_convertir"), &Game::selectConvertir);
-				ajouterBouton(convertir);
-				y += 34;
+				getButton("convertir")->move(x, y);
+				getButton("convertir")->Enable();
+				x += 114;
 			}
 		}
 		else if (u->getOutil() == Outil::fondation) {
-			cout << "fond" << endl;
 			if (u->getOutilRestant()) {
-				cout << "button" << endl;
-				Button* fondation = new Button("creation_ville", sf::Vector2i(0,y), manager->getRef("button_fondation"), &Game::creerVille);
-				ajouterBouton(fondation);
-				y += 34;
+				getButton("creation_ville")->move(x, y);
+				getButton("creation_ville")->Enable();
+				x += 114;
 			}
 		}
 		else if (u->getOutil() == Outil::kitDeGeologue) {
-			cout << "geo" << endl;
 			if (u->getOutilRestant()) {
-				cout << "button" << endl;
-				Button* exploration = new Button("exploration", sf::Vector2i(0, y), manager->getRef("button_exploration"), &Game::exploreSol);
-				ajouterBouton(exploration);
-				y += 34;
+				getButton("exploration")->move(x, y);
+				getButton("exploration")->Enable();
+				x += 114;
 			}
 		}
 		else if (u->getOutil() == Outil::transport) {
-			cout << "trans" << endl;
 			if (u->getReaproRestante()) {
-				cout << "button" << endl;
-				Button* reappro = new Button("reapprovision", sf::Vector2i(0, y), manager->getRef("button_reapprovision"), &Game::selectReapprovisionne);
-				ajouterBouton(reappro);
-				y += 34;
+				getButton("reapprovision")->move(x, y);
+				getButton("reapprovision")->Enable();
+				x += 114;
 			}
 			if (!u->estPlein()) {
-				cout << "button" << endl;
-				Button* charger = new Button("charger", sf::Vector2i(0, y), manager->getRef("button_chargerUnite"), &Game::selectChargeUnite);
-				ajouterBouton(charger);
-				y += 34;
+				getButton("charger")->move(x, y);
+				getButton("charger")->Enable();
+				x += 114;
 			}
 			if (u->estPlein()) {
-				cout << "button" << endl;
-				Button* decharger = new Button("decharger", sf::Vector2i(0, y), manager->getRef("button_dechargerUnite"), &Game::selectDechargeUnite);
-				ajouterBouton(decharger);
-				y += 34;
+				getButton("decharger")->move(x, y);
+				getButton("decharger")->Enable();
+				x += 114;
 			}
 		}
 	}
@@ -227,7 +215,7 @@ void Interface::renderTechnologies(sf::RenderWindow *renderWindow, sf::Font font
 	petrole = "Cout en petrole : " + std::to_string(technologie->getCoutPetrole());
 	vivres = "Cout en vivre : " + std::to_string(technologie->getCoutVivre());
 
-	float posX = 300;
+	float posX = 330;
 	float posY = height - INTERFACE_HEIGTH + 50;
 
 	ecrireMessage(renderWindow, posX, posY, msgTech, font, 14, sf::Color::Black);
@@ -237,8 +225,6 @@ void Interface::renderTechnologies(sf::RenderWindow *renderWindow, sf::Font font
 	ecrireMessage(renderWindow, posX, posY + 15*4, metaux, font, 14, sf::Color::Black);
 	ecrireMessage(renderWindow, posX, posY + 15*5, petrole, font, 14, sf::Color::Black);
 	ecrireMessage(renderWindow, posX, posY + 15*6, vivres, font, 14, sf::Color::Black);
-
-	ecrireMessage(renderWindow, posX + 350, posY + 125, "Acheter", font, 20, sf::Color::Black);
 }
 
 void Interface::renderInfoBatiment(sf::RenderWindow *renderWindow, sf::Font font, Batiment* batiment) {
@@ -252,18 +238,16 @@ void Interface::renderInfoBatiment(sf::RenderWindow *renderWindow, sf::Font font
 	petrole = "Cout en petrole : " + std::to_string(batiment->getCoutPetrole());
 	vivres = "Cout en vivre : " + std::to_string(batiment->getCoutVivre());
 
-	float posX = 403;
-	float posY = 805;
-
-	ecrireMessage(renderWindow, posX, posY, msgBatiement, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25, nom, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25 * 2, description, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25 * 3, energies, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25 * 4, metaux, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25 * 5, petrole, font, 18, sf::Color::Black);
-	ecrireMessage(renderWindow, posX, posY + 25 * 6, vivres, font, 18, sf::Color::Black);
-
-	ecrireMessage(renderWindow, posX + 350, posY + 125, "Construire", font, 20, sf::Color::Black);
+	float posX = 330;
+	float posY = height - INTERFACE_HEIGTH + 50;
+	
+	ecrireMessage(renderWindow, posX, posY, msgBatiement, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15, nom, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15 * 2, description, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15 * 3, energies, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15 * 4, metaux, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15 * 5, petrole, font, 14, sf::Color::Black);
+	ecrireMessage(renderWindow, posX, posY + 15 * 6, vivres, font, 14, sf::Color::Black);
 }
 
 void Interface::renderInfoUnite(sf::RenderWindow *renderWindow, sf::Font font, Unite *unite, float x, float y) {

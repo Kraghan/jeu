@@ -96,7 +96,7 @@ void UniteUtilitaire::creationVille(Player* player) {
 			}
 		}
 		player->detruireUnite(index);
-		cout << player->getNombreBatiment() << endl;
+		cout <<"ville fondée"<< player->getNombreBatiment() << endl;
 	}
 }
 

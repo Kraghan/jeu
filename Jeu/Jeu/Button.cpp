@@ -7,11 +7,27 @@ Button::Button(std::string _name, sf::Vector2i _coord, sf::Sprite _sprite, void(
 	this->taille = _sprite.getTexture()->getSize();
 	this->func = _func;
 	this->sprite = _sprite;
+	enabled = true;
+}
+
+void Button::Enable()
+{
+	enabled = true;
+}
+
+void Button::Disable()
+{
+	enabled = false;
+}
+
+bool Button::isEnabled()
+{
+	return enabled;
 }
 
 bool Button::clic(Game* game, int x, int y)
 {
-	if (x >= coord.x && x <= coord.x + taille.x && y >= coord.y && y <= coord.y + taille.y)
+	if (x >= coord.x && x <= coord.x + taille.x && y >= coord.y && y <= coord.y + taille.y && enabled)
 	{
 		(game->*func)();
 		return true;
@@ -21,6 +37,8 @@ bool Button::clic(Game* game, int x, int y)
 
 void Button::render(sf::RenderWindow *renderWindow)
 {
+	if (!enabled)
+		return;
 	sprite.setPosition(coord.x, coord.y);
 	renderWindow->draw(sprite);
 }

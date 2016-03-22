@@ -18,9 +18,9 @@ private :
 
 public :
 	Button(std::string _name, sf::Vector2i _coord, sf::Sprite _button, void(Game::*_func)(void));
-	void buttonPressed();
-	void buttonReleased();
-	void setEnabled();
+	void Enable();
+	void Disable();
+	bool isEnabled();
 	bool clic(Game* game, int x, int y);
 	std::string getNom();
 	void move(int x, int y);

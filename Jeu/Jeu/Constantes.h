@@ -1,7 +1,7 @@
 #pragma once
 
-#define WIN_WIDTH 800
-#define WIN_HEIGTH 600
+#define WIN_WIDTH 1000
+#define WIN_HEIGTH 768
 
 #define INTERFACE_WIDTH WIN_WIDTH
 
