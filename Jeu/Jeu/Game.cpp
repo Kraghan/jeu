@@ -4,6 +4,7 @@
 
 void Game::loadTextures() {
 	m_textureManager.loadTexture("unite","media/res/SpriteSheetUnite.png");
+	m_textureManager.loadTexture("batiment","media/res/SpriteSheetBatiment.png");
 	m_textureManager.getRef("unite").setSmooth(true);
 	m_textureManager.loadTexture("interface", "media/res/Interface.png");
 	m_textureManager.loadTexture("interfaceBarre", "media/res/InterfaceBarre.png");
@@ -89,27 +90,37 @@ void Game::loadSprites()
 	m_spriteManager.loadSprite("soldat_arme", m_textureManager.getRef("unite"), 128, 128, 2, 0);
 	m_spriteManager.loadSprite("demolisseur", m_textureManager.getRef("unite"), 128, 128, 3, 0);
 	m_spriteManager.loadSprite("colon", m_textureManager.getRef("unite"), 128, 128, 0, 4);
-	m_spriteManager.loadSprite("recruteur", m_textureManager.getRef("unite"), 128, 128, 3, 0);
+	m_spriteManager.loadSprite("recruteur", m_textureManager.getRef("unite"), 128, 128, 2, 4);
 	m_spriteManager.loadSprite("explorateur", m_textureManager.getRef("unite"), 128, 128, 4, 0);
 
 	m_spriteManager.loadSprite("maritime", m_textureManager.getRef("unite"), 128, 128, 0, 1);
-	m_spriteManager.loadSprite("cuirasse", m_textureManager.getRef("unite"), 128, 128, 0, 1);
-	m_spriteManager.loadSprite("torpilleur", m_textureManager.getRef("unite"), 128, 128, 0, 1);
-	m_spriteManager.loadSprite("corvette", m_textureManager.getRef("unite"), 128, 128, 0, 1);
-	m_spriteManager.loadSprite("barge", m_textureManager.getRef("unite"), 128, 128, 0, 1);
+	m_spriteManager.loadSprite("cuirasse", m_textureManager.getRef("unite"), 128, 128, 1, 1);
+	m_spriteManager.loadSprite("torpilleur", m_textureManager.getRef("unite"), 128, 128, 2, 1);
+	m_spriteManager.loadSprite("corvette", m_textureManager.getRef("unite"), 128, 128, 3, 1);
+	m_spriteManager.loadSprite("barge", m_textureManager.getRef("unite"), 128, 128, 4, 1);
 
 	m_spriteManager.loadSprite("motorise", m_textureManager.getRef("unite"), 128, 128, 0, 2);
-	m_spriteManager.loadSprite("artillerie", m_textureManager.getRef("unite"), 128, 128, 1, 2);
-	m_spriteManager.loadSprite("transporteur", m_textureManager.getRef("unite"), 128, 128, 1, 2);
+	m_spriteManager.loadSprite("artillerie", m_textureManager.getRef("unite"), 128, 128, 3, 2);
+	m_spriteManager.loadSprite("transporteur", m_textureManager.getRef("unite"), 128, 128, 1, 4);
 	m_spriteManager.loadSprite("jeep", m_textureManager.getRef("unite"), 128, 128, 1, 2);
-	m_spriteManager.loadSprite("char", m_textureManager.getRef("unite"), 128, 128, 1, 2);
-	m_spriteManager.loadSprite("dca", m_textureManager.getRef("unite"), 128, 128, 1, 2);
+	m_spriteManager.loadSprite("char", m_textureManager.getRef("unite"), 128, 128, 2, 2);
+	m_spriteManager.loadSprite("dca", m_textureManager.getRef("unite"), 128, 128, 4, 2);
 
 	m_spriteManager.loadSprite("aerien", m_textureManager.getRef("unite"), 128, 128, 0, 3);
-	m_spriteManager.loadSprite("chasseur", m_textureManager.getRef("unite"), 128, 128, 0, 3);
-	m_spriteManager.loadSprite("bombardier", m_textureManager.getRef("unite"), 128, 128, 0, 3);
-	m_spriteManager.loadSprite("helicoptere", m_textureManager.getRef("unite"), 128, 128, 0, 3);
-	m_spriteManager.loadSprite("helico_transport", m_textureManager.getRef("unite"), 128, 128, 0, 3);
+	m_spriteManager.loadSprite("chasseur", m_textureManager.getRef("unite"), 128, 128, 1, 3);
+	m_spriteManager.loadSprite("bombardier", m_textureManager.getRef("unite"), 128, 128, 2, 3);
+	m_spriteManager.loadSprite("helicoptere", m_textureManager.getRef("unite"), 128, 128, 3, 3);
+	m_spriteManager.loadSprite("helico_transport", m_textureManager.getRef("unite"), 128, 128, 4, 3);
+
+	m_spriteManager.loadSprite("batiment",m_textureManager.getRef("batiment"),128,128,0,0);
+	m_spriteManager.loadSprite("centre_ville",m_textureManager.getRef("batiment"),128,128,1,0);
+	m_spriteManager.loadSprite("bibliotheque",m_textureManager.getRef("batiment"),128,128,1,0);
+	m_spriteManager.loadSprite("prod_energie",m_textureManager.getRef("batiment"),128,128,0,1);
+	m_spriteManager.loadSprite("prod_petrole",m_textureManager.getRef("batiment"),128,128,1,1);
+	m_spriteManager.loadSprite("stock_energie",m_textureManager.getRef("batiment"),128,128,0,3);
+	m_spriteManager.loadSprite("stock_petrole",m_textureManager.getRef("batiment"),128,128,1,3);
+	m_spriteManager.loadSprite("caserne",m_textureManager.getRef("batiment"),128,128,0,2);
+	m_spriteManager.loadSprite("usine",m_textureManager.getRef("batiment"),128,128,1,2);
 
 	m_spriteManager.loadSprite("gui_haut_gauche", m_textureManager.getRef("gui"), 10, 30, 0, 0);
 	m_spriteManager.loadSprite("gui_haut_milieu", m_textureManager.getRef("gui"), 10, 30, 1, 0);
