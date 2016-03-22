@@ -12,7 +12,6 @@ private:
 
 public:
 	BatimentManager();
-	BatimentManager(UniteManager *manager);
 
 	vector<Batiment*> getBatimentConstructible();
 

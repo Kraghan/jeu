@@ -7,10 +7,7 @@
 
 #define INTERFACE_HEIGTH 225
 
-#define MAP_WIDTH 20
-#define MAP_HEIGTH 20
+#define MAP_WIDTH 35
+#define MAP_HEIGTH 35
 
 #define SPRITE 128
-
-#define NB_JOUEUR_MAX 8
-#define NB_JOUEUR 2

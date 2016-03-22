@@ -1,11 +1,7 @@
 #include "BatimentManager.h"
 
+
 BatimentManager::BatimentManager()
-{
-
-}
-
-BatimentManager::BatimentManager(UniteManager *manager)
 {
 	m_batiments["Ville"] = new Batiment(-1,-1,"Ville","Batiment permettant d'effectuer les actions de base", Ressource::AUCUNE, 0, 0, 0, 0, 0);
 	m_batiments["AvantPoste"] = new Batiment(-1, -1, "Ville", "Batiment permettant d'effectuer les actions de base", Ressource::AUCUNE, 0, 0, 0, 0, 0);

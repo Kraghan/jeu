@@ -35,7 +35,7 @@ private:
 	bool testClicZoneJeu(int x, int y);
 	bool testUniteAlliee(int x, int y);
 	bool testUniteEnnemie(int x, int y);
-	bool testEntiteEnnemie(int x, int y);
+	bool testEntiteEnnemie(int x, int y, int numPlayer);
 	bool testUniteSelectionneTypeCase(int x, int y);
 	bool testUniteAllieeInfanterie(int x, int y);
 	bool inDeplacement(sf::Vector2f item);
@@ -105,7 +105,7 @@ public:
 	void clicInterface(int x, int y);
 	void clicZoneJeu(int x, int y);
 	void clicUnite(int x, int y, Unite *unite);
-	void clicBatiment(int x, int y);
+	void clicBatiment(int x, int y, Batiment *batiment);
 
 	void joueurSuivant();
 	void finTour();
@@ -129,4 +129,10 @@ public:
 	void selectionneEnnemiAdjacent();
 	void selectionneAllieAdjacent();
 	void selectCaseDechargeable();
+
+	void setSpawnPlayer();
+	int random(int a, int b);
+	bool testInfanterieTypeCase(int x, int y);
+	bool presenceEnnemie(int x, int y, int radius, int numJoueur);
+	bool spawnProche(int x, int y, int radius, vector<sf::Vector2i> spawnPoint);
 };

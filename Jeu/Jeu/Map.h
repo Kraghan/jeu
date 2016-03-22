@@ -10,7 +10,7 @@
 class Map {
 private:
 	int m_width, m_heigth;
-    Tile **m_tiles;
+    vector<vector<Tile>> m_tiles;
     unsigned int permutation[256];
 
 public:

@@ -7,10 +7,12 @@
 int main()
 {
 	sf::Vector2i mapSize(MAP_WIDTH, MAP_HEIGTH);
+	cout << mapSize.x << " " << mapSize.y << endl;
 	vector<Player*> joueurs;
 	joueurs.push_back(new Player(sf::Color::Cyan, "José", mapSize.x, mapSize.y));
 	joueurs.push_back(new Player(sf::Color::Green, "Robert", mapSize.x, mapSize.y));
 	joueurs.push_back(new Player(sf::Color::Magenta, "Gérard", mapSize.x, mapSize.y));
+	joueurs.push_back(new Player(sf::Color::Red, "Thierry", mapSize.x, mapSize.y));
     Game* game = new Game(joueurs,mapSize);
 
 	bool leftPressed(false), rightPressed(false), upPressed(false), downPressed(false);
