@@ -7,7 +7,6 @@
 int main()
 {
 	sf::Vector2i mapSize(MAP_WIDTH, MAP_HEIGTH);
-	cout << mapSize.x << " " << mapSize.y << endl;
 	vector<Player*> joueurs;
 	joueurs.push_back(new Player(sf::Color::Cyan, "José", mapSize.x, mapSize.y));
 	joueurs.push_back(new Player(sf::Color::Green, "Robert", mapSize.x, mapSize.y));

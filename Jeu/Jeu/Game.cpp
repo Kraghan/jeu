@@ -294,11 +294,14 @@ void Game::render() {
 		if (m_uniteSelectionne != NULL) {
 			m_interface->renderInfoUnite(&m_window, font, m_uniteSelectionne,320,m_winSize.y - INTERFACE_HEIGTH + 40);
 		}
+		if (m_batimentSelectionne != NULL) {
+			m_interface->renderInfoBatiment(&m_window, font, m_batimentSelectionne, 320, m_winSize.y - INTERFACE_HEIGTH + 40);
+		}
 		if (tech) {
 			m_interface->renderTechnologies(&m_window, font, m_technologie);
 		}
 		if (batiment) {
-			m_interface->renderInfoBatiment(&m_window, font, m_batiment);
+			m_interface->renderBatiment(&m_window, font, m_batiment);
 		}
 		m_interface->renderPlayer(&m_window, m_playerActif, font,m_winSize.y-INTERFACE_HEIGTH + 5);
 		// Render de la minimap
@@ -663,7 +666,7 @@ void Game::clicUnite(int x, int y, Unite *unite) {
 
 void Game::clicBatiment(int x, int y, Batiment *batiment)
 {
-	m_batiment = batiment;
+	m_batimentSelectionne = batiment;
 	tech = false;
 	batiment = false;
 	m_interface->getButton("suivant")->Disable();
