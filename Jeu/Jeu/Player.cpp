@@ -231,14 +231,6 @@ vector<Technologie*> Player::getTechnoARechercher() {
 }
 
 void Player::render(sf::RenderWindow *renderWindow, SpriteManager *manager, sf::Vector2f nbCase, sf::Vector2f caseCentrale) {
-
-	for (unsigned int i = 0; i < listUnite.size(); i++) {
-		if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listUnite[i]->getCoordX() && listUnite[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
-			if (caseCentrale.y - ((nbCase.y / 2) + 2) < listUnite[i]->getCoordY() && listUnite[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
-				listUnite[i]->render(renderWindow, couleur, manager);
-			}
-		}
-	}
 	for (unsigned int i = 0; i < listBatiment.size(); i++) {
 		if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listBatiment[i]->getCoordX() && listBatiment[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
 			if (caseCentrale.y - ((nbCase.y / 2) + 2) < listBatiment[i]->getCoordY() && listBatiment[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
@@ -246,23 +238,30 @@ void Player::render(sf::RenderWindow *renderWindow, SpriteManager *manager, sf::
 			}
 		}
 	}
-}
-
-void Player::render(sf::RenderWindow *renderWindow, SpriteManager *manager, Player *player, sf::Vector2f nbCase, sf::Vector2f caseCentrale) {
 	for (unsigned int i = 0; i < listUnite.size(); i++) {
-		if (player->aDecouvertLaCase(listUnite[i]->getCoordX(), listUnite[i]->getCoordY())) {
-			if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listUnite[i]->getCoordX() && listUnite[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
-				if (caseCentrale.y - ((nbCase.y / 2) + 2) < listUnite[i]->getCoordY() && listUnite[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
-					listUnite[i]->render(renderWindow, couleur, manager);
-				}
+		if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listUnite[i]->getCoordX() && listUnite[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
+			if (caseCentrale.y - ((nbCase.y / 2) + 2) < listUnite[i]->getCoordY() && listUnite[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
+				listUnite[i]->render(renderWindow, couleur, manager);
 			}
 		}
 	}
+}
+
+void Player::render(sf::RenderWindow *renderWindow, SpriteManager *manager, Player *player, sf::Vector2f nbCase, sf::Vector2f caseCentrale) {
 	for (unsigned int i = 0; i < listBatiment.size(); i++) {
 		if (player->aDecouvertLaCase(listBatiment[i]->getCoordX(), listBatiment[i]->getCoordY())) {
 			if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listBatiment[i]->getCoordX() && listBatiment[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
 				if (caseCentrale.y - ((nbCase.y / 2) + 2) < listBatiment[i]->getCoordY() && listBatiment[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
 					listBatiment[i]->render(renderWindow, couleur, manager);
+				}
+			}
+		}
+	}
+	for (unsigned int i = 0; i < listUnite.size(); i++) {
+		if (player->aDecouvertLaCase(listUnite[i]->getCoordX(), listUnite[i]->getCoordY())) {
+			if (caseCentrale.x - ((nbCase.x / 2) + 1) <= listUnite[i]->getCoordX() && listUnite[i]->getCoordX() <= caseCentrale.x + ((nbCase.x / 2) + 1)) {
+				if (caseCentrale.y - ((nbCase.y / 2) + 2) < listUnite[i]->getCoordY() && listUnite[i]->getCoordY() < caseCentrale.y + ((nbCase.y / 2) + 2)) {
+					listUnite[i]->render(renderWindow, couleur, manager);
 				}
 			}
 		}
@@ -340,4 +339,18 @@ void Player::decouvreRessource(int x, int y) {
 
 bool Player::aPerdu() {
 	return listBatiment.size() == 0 && listUnite.size() == 0;
+}
+
+sf::Vector2i Player::getPrincipal() {
+	for (int i = 0; i < getNombreBatiment();i++) {
+		if (listBatiment[i]->getNom() == "Ville") {
+			return sf::Vector2i(listBatiment[i]->getCoordX(), listBatiment[i]->getCoordY()+1);
+		}
+	}
+	for (int i = 0; i < getNombreUnite();i++) {
+		if (listUnite[i]->getNom() == "Colon") {
+			return sf::Vector2i(listUnite[i]->getCoordX(), listUnite[i]->getCoordY()+1);
+		}
+	}
+	return sf::Vector2i(0,0);
 }

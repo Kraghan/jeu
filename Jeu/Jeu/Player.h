@@ -54,4 +54,5 @@ public :
 	void decouvre();
 	void decouvreRessource(int x, int y);
 	bool aPerdu();
+	sf::Vector2i getPrincipal();
 };
