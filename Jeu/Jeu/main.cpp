@@ -6,8 +6,13 @@
 
 int main()
 {
-	UniteManager unites;
-    Game* game = new Game(2);
+	sf::Vector2i mapSize(MAP_WIDTH, MAP_HEIGTH);
+	vector<Player*> joueurs;
+	joueurs.push_back(new Player(sf::Color::Cyan, "José", mapSize.x, mapSize.y));
+	joueurs.push_back(new Player(sf::Color::Green, "Robert", mapSize.x, mapSize.y));
+	joueurs.push_back(new Player(sf::Color::Magenta, "Gérard", mapSize.x, mapSize.y));
+	joueurs.push_back(new Player(sf::Color::Red, "Thierry", mapSize.x, mapSize.y));
+    Game* game = new Game(joueurs,mapSize);
 
 	bool leftPressed(false), rightPressed(false), upPressed(false), downPressed(false);
 	float zoom = 1;
@@ -16,12 +21,6 @@ int main()
 	sf::Clock c; //Timer pour les déplacements de la carte à la souris
 	int fps_move_mouse = 200; //fps des déplacmeents de la caméra à la souris
 	int detecte_zone = 3; //zone de détection pour la caméra à la souris
-	game->m_playerActif->creerUnite(unites.creerUnite("Soldat",9,9), game->m_map.getTile(9,9).getBonusRes());
-	game->m_playerActif->creerUnite(unites.creerUnite("Colon", 9, 10), game->m_map.getTile(9, 10).getBonusRes());
-	game->m_playerActif->creerUnite(unites.creerUnite("Explorateur", 10, 9), game->m_map.getTile(10, 9).getBonusRes());
-	
-	game->m_players[1]->creerUnite(unites.creerUnite("SoldatArmee",11,11), game->m_map.getTile(11, 11).getBonusRes());
-	game->getPlayerActif()->decouvre();
 
     while(game->m_window.isOpen())
     {

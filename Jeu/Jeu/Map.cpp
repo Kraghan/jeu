@@ -6,9 +6,8 @@ Map::Map(int width, int heigth)
 {
 	m_width = width;
 	m_heigth = heigth;
-	m_tiles = new Tile* [m_width];
 	for (int i = 0; i < m_width; i++) {
-		m_tiles[i] = new Tile[m_heigth];
+		m_tiles.push_back(vector<Tile>(m_heigth));
 	}
 	srand((unsigned int) time(NULL));
 	std::cout << "Creation de la map" << std::endl;
@@ -250,9 +249,8 @@ void Map::loadMap(std::string name)
 	m_width = topo.getSize().x;
 	m_heigth = topo.getSize().y;
 
-	m_tiles = new Tile*[m_width];
 	for (int i = 0; i < m_width; i++) {
-		m_tiles[i] = new Tile[m_heigth];
+		m_tiles.push_back(vector<Tile>(m_heigth));
 	}
 	srand((unsigned int)time(NULL));
 	std::cout << "Chargement de la map" << std::endl;
