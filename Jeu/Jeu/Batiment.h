@@ -25,6 +25,7 @@ public:
 	bool isBatiment();
 	bool isProductionRessource();
 	bool isProductionUnite();
+	sf::Sprite getIcon(SpriteManager* manager);
 	
 	Ressource getRessourceStocked();
 

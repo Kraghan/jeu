@@ -65,8 +65,30 @@ int Batiment::getMaxStock()
 	return maxStock;
 }
 
+sf::Sprite Batiment::getIcon(SpriteManager* manager) {
+	sf::Sprite sprite;
+	if (getNom() == "Ville") {
+		sprite = manager->getRef("centre_ville");
+	}
+	else if (getNom() == "Bibliotheque") {
+		sprite = manager->getRef("bibliotheque");
+	}
+	return sprite;
+}
+
 void Batiment::render(sf::RenderWindow *renderWindow, sf::Color color, SpriteManager *manager)
 {
+	if (getCoordX() == -1 && getCoordY() == -1) {
+		return;
+	}
+	sf::Sprite fond = manager->getRef("batiment");
+	fond.setPosition(sf::Vector2f(getCoordX()*SPRITE, getCoordY()*SPRITE));
+	fond.setColor(color);
+	renderWindow->draw(fond);
+	//Draw unite icon
+	sf::Sprite icon = getIcon(manager);
+	icon.setPosition(sf::Vector2f(getCoordX()*SPRITE, getCoordY()*SPRITE));
+	renderWindow->draw(icon);
 	/*sf::Sprite fond = getFond(manager);
 	fond.setPosition(sf::Vector2f(getCoordX()*SPRITE, getCoordY()*SPRITE));
 	fond.setColor(color);
